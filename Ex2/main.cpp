@@ -25,6 +25,24 @@ int main() {
         cout << "A + B:" << endl;
         c.print();
 
+        // Test matrix subtraction
+        SquareMat d = a - b;
+
+        cout << "A - B:" << endl;
+        d.print();
+
+        // Test unary minus operator
+        SquareMat e = -a;
+
+        cout << "-A:" << endl;
+        e.print();
+
+        // Test matrix multiplication
+        SquareMat f = a * b; // Multiplying matrix A by B
+
+        cout << "A * B:" << endl;
+        f.print();
+
     } catch (const char* msg) {
         cout << "Error: " << msg << endl;
     }

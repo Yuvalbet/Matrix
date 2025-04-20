@@ -86,3 +86,62 @@ SquareMat SquareMat::operator+(const SquareMat& other) const {
 
     return result;
 }
+
+// Operator - : Matrix Subtraction
+SquareMat SquareMat::operator-(const SquareMat& other) const {
+    if (size != other.size) {
+        throw "Cannot subtract matrices of different sizes";
+    }
+
+    // Create new matrix to store result
+    SquareMat result(size);
+
+    // Subtract each element
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            result.data[i][j] = data[i][j] - other.data[i][j];
+        }
+    }
+
+    return result;
+}
+
+// Operator - : Unary minus (change the sign of each element)
+SquareMat SquareMat::operator-() const {
+    // Create new matrix to store result
+    SquareMat result(size);
+
+    // Change the sign of each element
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            result.data[i][j] = -data[i][j];
+        }
+    }
+
+    return result;
+}
+
+// Operator * : Matrix Multiplication
+SquareMat SquareMat::operator*(const SquareMat& other) const {
+    if (size != other.size) {
+        throw "Cannot multiply matrices of different sizes";
+    }
+
+    // Create new matrix to store the result
+    SquareMat result(size);
+
+    // Perform matrix multiplication
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            result.data[i][j] = 0;
+            for (int k = 0; k < size; ++k) {
+                result.data[i][j] += data[i][k] * other.data[k][j];
+            }
+        }
+    }
+
+    return result;
+}
+
+
+
