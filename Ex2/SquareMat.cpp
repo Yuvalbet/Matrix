@@ -1,5 +1,7 @@
 #include "SquareMat.hpp"
 #include <iostream> 
+#include <cmath> // for fmod()
+
 
 using namespace MyMatrix;
 using namespace std;//במקום לכתוב כל פעם STD
@@ -38,10 +40,13 @@ SquareMat::SquareMat(const SquareMat& other) {
 
 // Destructor – Frees memory
 SquareMat::~SquareMat() {
-    for (int i = 0; i < size; ++i) {
-        delete[] data[i]; // שחרור כל שורה
+    if (data != nullptr) {
+        for (int i = 0; i < size; ++i) {
+            delete[] data[i];  // שחרור כל שורה
+        }
+        delete[] data;  // שחרור המערך של השורות
+        data = nullptr;  // אתחול המצביע ל-nullptr
     }
-    delete[] data; // שחרור המערך של השורות
 }
 
 // Helper Function – Prints the matrix
@@ -68,7 +73,7 @@ const double* SquareMat::operator[](int i) const {
 }
 
 
-// Operator + : Matrix Addition
+//Matrix Addition
 SquareMat SquareMat::operator+(const SquareMat& other) const {
     if (size != other.size) {
         throw "Cannot add matrices of different sizes";
@@ -87,7 +92,7 @@ SquareMat SquareMat::operator+(const SquareMat& other) const {
     return result;
 }
 
-// Operator - : Matrix Subtraction
+//Matrix Subtraction
 SquareMat SquareMat::operator-(const SquareMat& other) const {
     if (size != other.size) {
         throw "Cannot subtract matrices of different sizes";
@@ -106,7 +111,7 @@ SquareMat SquareMat::operator-(const SquareMat& other) const {
     return result;
 }
 
-// Operator - : Unary minus (change the sign of each element)
+//Unary minus (change the sign of each element)
 SquareMat SquareMat::operator-() const {
     // Create new matrix to store result
     SquareMat result(size);
@@ -120,28 +125,85 @@ SquareMat SquareMat::operator-() const {
 
     return result;
 }
-
-// Operator * : Matrix Multiplication
 SquareMat SquareMat::operator*(const SquareMat& other) const {
     if (size != other.size) {
         throw "Cannot multiply matrices of different sizes";
     }
 
-    // Create new matrix to store the result
     SquareMat result(size);
 
     // Perform matrix multiplication
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            result.data[i][j] = 0;
+            result.data[i][j] = 0;  // אתחול התוצאה לשם ביצוע הכפל
             for (int k = 0; k < size; ++k) {
                 result.data[i][j] += data[i][k] * other.data[k][j];
             }
         }
     }
 
+    cout << "Multiplication result:" << endl;
+    result.print();  // הדפסת תוצאת הכפל
     return result;
 }
 
 
+//Matrix * scalar
+SquareMat SquareMat::operator*(double scalar) const {
+    SquareMat result(size);
+    for (int i = 0; i < size; ++i)
+        for (int j = 0; j < size; ++j)
+            result[i][j] = data[i][j] * scalar;
+    return result;
+}
+//scalar * Matrix (outside the class, inside namespace)
+namespace MyMatrix {
 
+    SquareMat operator*(double scalar, const SquareMat& mat) {
+        return mat * scalar;
+    }
+    
+} // namespace MyMatrix
+
+//Multiply terms between two matrices
+SquareMat SquareMat::operator%(const SquareMat& other) const {
+    if (size != other.size)
+        throw "Cannot apply % to matrices of different sizes";
+
+    SquareMat result(size);
+    for (int i = 0; i < size; ++i)
+        for (int j = 0; j < size; ++j)
+            result[i][j] = data[i][j] * other.data[i][j];
+
+    return result;
+}
+
+//For each element in the matrix, we model it with the scalar
+SquareMat SquareMat::operator%(int scalar) const {
+    if (scalar == 0)
+        throw "Modulo by zero is not allowed";
+
+    SquareMat result(size);
+    for (int i = 0; i < size; ++i)
+        for (int j = 0; j < size; ++j)
+            result[i][j] = fmod(data[i][j], scalar); // use fmod for doubles
+
+    return result;
+}
+
+//Scalar division (divide each element by scalar)
+SquareMat SquareMat::operator/(double scalar) const {
+    // Check for division by zero
+    if (scalar == 0) {
+        throw "Division by zero is not allowed";
+    }
+
+    SquareMat result(size); 
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+            result[i][j] = data[i][j] / scalar;  // Divide each element by scalar
+        }
+    }
+
+    return result;
+}

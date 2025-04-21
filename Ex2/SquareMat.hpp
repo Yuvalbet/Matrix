@@ -35,7 +35,23 @@ public:
     // Operator * : Multiplies two matrices
     SquareMat operator*(const SquareMat& other) const;
 
+    // Scalar multiplication: matrix * scalar
+    SquareMat operator*(double scalar) const;
+
+    // Element-wise multiplication
+    SquareMat operator%(const SquareMat& other) const;
+
+    // Modulo operation with scalar
+    SquareMat operator%(int scalar) const;
+
+    //calar division (divide each element by scalar)
+    SquareMat operator/(double scalar) const;
+
+   
 };
+    // Scalar multiplication: scalar * matrix
+    SquareMat operator*(double scalar, const SquareMat& mat);
+
 
 }
 #endif
