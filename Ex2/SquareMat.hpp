@@ -1,6 +1,9 @@
 #ifndef SQUAREMAT_HPP
 #define SQUAREMAT_HPP
 
+#include <ostream>
+
+
 namespace MyMatrix{
     
 class SquareMat{
@@ -11,6 +14,8 @@ private:
 public:
     SquareMat(int n);
     SquareMat(const SquareMat& other);
+    SquareMat& operator=(const SquareMat& other);
+
 
     ~SquareMat();
 
@@ -47,10 +52,54 @@ public:
     //calar division (divide each element by scalar)
     SquareMat operator/(double scalar) const;
 
+    //Raises the matrix to a power (matrix exponentiation)
+    SquareMat operator^(int power) const;
+
+    // Pre-increment (++mat)
+    SquareMat& operator++();
+
+    // Post-increment (mat++)
+    SquareMat operator++(int);
+
+    // Pre-decrement (--mat)
+    SquareMat& operator--();
+
+    // Post-decrement (mat--)
+    SquareMat operator--(int);
+
+    // Transpose operator: switches rows and columns
+    SquareMat operator~() const;
+
+    // Equality and inequality based on sum of elements
+    bool operator==(const SquareMat& other) const;
+    bool operator!=(const SquareMat& other) const;
+
+    // Comparison operators based on sum of elements
+    bool operator<(const SquareMat& other) const;
+    bool operator<=(const SquareMat& other) const;
+    bool operator>(const SquareMat& other) const;
+    bool operator>=(const SquareMat& other) const;
+
+    double operator!() const;
+
+    // Combined assignment operators
+    SquareMat& operator+=(const SquareMat& other);
+    SquareMat& operator-=(const SquareMat& other);
+    SquareMat& operator*=(const SquareMat& other);
+    SquareMat& operator*=(double scalar);
+    SquareMat& operator/=(double scalar);
+    SquareMat& operator%=(const SquareMat& other);
+    SquareMat& operator%=(int scalar);
+
+
+
+
    
 };
     // Scalar multiplication: scalar * matrix
     SquareMat operator*(double scalar, const SquareMat& mat);
+
+    std::ostream& operator<<(std::ostream& os, const SquareMat& mat);
 
 
 }

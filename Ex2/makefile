@@ -1,32 +1,36 @@
-# הגדרת הקומפיילר
+# Compiler and flags
 CXX = g++
 CXXFLAGS = -Wall -g
 
-# הגדרת שם קובץ ההדגמה
+# Target name for the executable
 TARGET = Main
 
-# הגדרת קבצי המקור (Source Files)
+# Source files
 SRC = main.cpp SquareMat.cpp
 
-# המרת קבצי ה- .cpp ל- .o (קבצי אובייקט)
+# Object files
+OBJ = main.o SquareMat.o
+
+# Default rule to build the target
+$(TARGET):  main.o SquareMat.o
+	$(CXX) $(CXXFLAGS)  main.o SquareMat.o -o $(TARGET)
+
+# Rule to compile main.cpp to main.o
 main.o: main.cpp SquareMat.hpp
 	$(CXX) $(CXXFLAGS) -c main.cpp -o main.o
 
+# Rule to compile SquareMat.cpp to SquareMat.o
 SquareMat.o: SquareMat.cpp SquareMat.hpp
 	$(CXX) $(CXXFLAGS) -c SquareMat.cpp -o SquareMat.o
 
-# יצירת קובץ ההדגמה (Executable)
-$(TARGET): main.o SquareMat.o
-	$(CXX) $(CXXFLAGS) main.o SquareMat.o -o $(TARGET)
-
-# הפקודה make test – להרצת בדיקות יחידה
-test:
+# Rule to run the program (test)
+test: $(TARGET)
 	./$(TARGET)
 
-# הפקודה make valgrind – לבדוק זליגת זיכרון עם valgrind
+# Rule to check for memory leaks using valgrind
 valgrind: $(TARGET)
-	valgrind --leak-check=full ./$(TARGET)
+	ulimit -n 4096 && valgrind --leak-check=full ./$(TARGET)
 
-# הפקודה make clean – מוחקת קבצים לא רלוונטיים לאחר הריצה
+# Clean up object and executable files
 clean:
-	rm -f *.o $(TARGET)
+	rm -f  main.o SquareMat.o $(TARGET)
