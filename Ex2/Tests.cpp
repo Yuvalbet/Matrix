@@ -1,20 +1,20 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include "doctest.h"
-#include "SquareMat.hpp" // ודא שהשם נכון בהתאם לקובץ שלך
+#include "SquareMat.hpp" 
 
-TEST_CASE("בדיקות בנאי עם ערכים לא חוקיים") {
+TEST_CASE("Constructor checks with invalid values") {
     CHECK_THROWS(MyMatrix::SquareMat(0));
     CHECK_THROWS(MyMatrix::SquareMat(-3));
 }
 
-TEST_CASE("בדיקות גישה לאינדקס שגוי") {
+TEST_CASE("Incorrect index access checks") {
     MyMatrix::SquareMat m(3);
     CHECK_THROWS(m[-1]);
     CHECK_THROWS(m[3]);
 }
 
-TEST_CASE("בדיקת פעולות בין מטריצות בגודל שונה") {
+TEST_CASE("Testing operations between matrices of different sizes") {
     MyMatrix::SquareMat a(2), b(3);
     CHECK_THROWS(a + b);
     CHECK_THROWS(a - b);
@@ -22,25 +22,22 @@ TEST_CASE("בדיקת פעולות בין מטריצות בגודל שונה") {
     CHECK_THROWS(a % b);
 }
 
-TEST_CASE("בדיקת פעולות עם סקלר לא חוקי") {
+TEST_CASE("Checking operations with an invalid scalar") {
     MyMatrix::SquareMat m(2);
     CHECK_THROWS(m / 0);
     CHECK_THROWS(m % 0);
 }
 
-TEST_CASE("בדיקת חזקה שלילית") {
+TEST_CASE("Negative strength test") {
     MyMatrix::SquareMat m(2);
     CHECK_THROWS(m ^ -2);
 }
 
-TEST_CASE("בדיקת דטרמיננטה על מטריצה ריקה") {
+TEST_CASE("Determinant test on an empty matrix") {
     CHECK_THROWS(MyMatrix::SquareMat(0));
-    // אפשרות נוספת:
-    // MyMatrix::SquareMat empty(0);
-    // CHECK_THROWS(!empty);
 }
 
-TEST_CASE("בדיקת השוואות בין מטריצות בגדלים שונים") {
+TEST_CASE("Testing comparisons between matrices of different sizes") {
     MyMatrix::SquareMat a(2), b(3);
     CHECK_THROWS(a == b);
     CHECK_THROWS(a < b);

@@ -4,11 +4,12 @@
 
 
 using namespace MyMatrix;
-using namespace std;//במקום לכתוב כל פעם STD
+using namespace std;
 
 // Constructor – Allocates 2D dynamic array
 SquareMat::SquareMat(int n) {
-    if (n <= 0) throw std::invalid_argument("Invalid matrix size");
+    if (n <= 0)
+        throw std::invalid_argument("Matrix size must be positive.");
 
     size = n;
     data = new double*[size];
@@ -89,15 +90,15 @@ void SquareMat::print() const {
 double* SquareMat::operator[](int i) {
     // Check if the row index is in range
     if (i < 0 || i >= size) {
-        throw "Row index out of bounds"; 
-    }
+        throw std::out_of_range("Row index out of bounds");
+    }    
     return data[i]; 
 }
 
 const double* SquareMat::operator[](int i) const {
     if (i < 0 || i >= size) {
-        throw "Row index out of bounds";  
-    }
+        throw std::out_of_range("Row index out of bounds");
+    } 
     return data[i];
 }
 
@@ -106,9 +107,9 @@ const double* SquareMat::operator[](int i) const {
 //Matrix Addition
 SquareMat SquareMat::operator+(const SquareMat& other) const {
     if (size != other.size) {
-        throw "Cannot add matrices of different sizes";
-    }
-
+        throw std::invalid_argument("Cannot add matrices of different sizes");
+    }    
+    
     // Create new matrix to store result
     SquareMat result(size);
 
@@ -125,8 +126,8 @@ SquareMat SquareMat::operator+(const SquareMat& other) const {
 //Matrix Subtraction
 SquareMat SquareMat::operator-(const SquareMat& other) const {
     if (size != other.size) {
-        throw "Cannot subtract matrices of different sizes";
-    }
+        throw std::invalid_argument("Cannot subtract matrices of different sizes");
+    } 
 
     // Create new matrix to store result
     SquareMat result(size);
@@ -155,10 +156,12 @@ SquareMat SquareMat::operator-() const {
 
     return result;
 }
+
+//Matrix multiplication
 SquareMat SquareMat::operator*(const SquareMat& other) const {
     if (size != other.size) {
-        throw "Cannot multiply matrices of different sizes";
-    }
+        throw std::invalid_argument("Cannot multiply matrices of different sizes");
+    }    
 
     SquareMat result(size);
 
@@ -174,11 +177,6 @@ SquareMat SquareMat::operator*(const SquareMat& other) const {
     return result;
 }
 
-
-
-
-
-
 //Matrix * scalar
 SquareMat SquareMat::operator*(double scalar) const {
     SquareMat result(size);
@@ -187,19 +185,12 @@ SquareMat SquareMat::operator*(double scalar) const {
             result[i][j] = data[i][j] * scalar;
     return result;
 }
-//scalar * Matrix (outside the class, inside namespace)
-namespace MyMatrix {
 
-    SquareMat operator*(double scalar, const SquareMat& mat) {
-        return mat * scalar;
-    }
-    
-} // namespace MyMatrix
 
 //Multiply terms between two matrices
 SquareMat SquareMat::operator%(const SquareMat& other) const {
     if (size != other.size)
-        throw "Cannot apply % to matrices of different sizes";
+        throw std::invalid_argument("Cannot apply % to matrices of different sizes");
 
     SquareMat result(size);
     for (int i = 0; i < size; ++i)
@@ -212,7 +203,7 @@ SquareMat SquareMat::operator%(const SquareMat& other) const {
 //For each element in the matrix, we model it with the scalar
 SquareMat SquareMat::operator%(int scalar) const {
     if (scalar == 0)
-        throw "Modulo by zero is not allowed";
+        throw std::invalid_argument("Modulo by zero is not allowed");
 
     SquareMat result(size);
     for (int i = 0; i < size; ++i)
@@ -226,8 +217,9 @@ SquareMat SquareMat::operator%(int scalar) const {
 SquareMat SquareMat::operator/(double scalar) const {
     // Check for division by zero
     if (scalar == 0) {
-        throw "Division by zero is not allowed";
+        throw std::invalid_argument("Division by zero is not allowed");
     }
+    
 
     SquareMat result(size); 
     for (int i = 0; i < size; ++i) {
@@ -240,11 +232,11 @@ SquareMat SquareMat::operator/(double scalar) const {
 }
 
 
-
+//Raise the matrix to a power
 SquareMat SquareMat::operator^(int power) const {
     if (power < 0) {
-        throw "Negative powers are not supported for matrix exponentiation";
-    }
+        throw std::invalid_argument("Negative powers are not supported for matrix exponentiation");
+    }    
 
     if (power == 0) {
         SquareMat identity(size);
@@ -309,6 +301,7 @@ SquareMat SquareMat::operator~() const {
     return result;
 }
 
+//Comparing matrix sums
 bool SquareMat::operator==(const SquareMat& other) const {
     if (size != other.size)
         throw std::invalid_argument("Matrices must be of the same size.");
@@ -332,7 +325,8 @@ bool SquareMat::operator!=(const SquareMat& other) const {
 
 // Less than
 bool SquareMat::operator<(const SquareMat& other) const {
-    if (size != other.size) throw "Cannot compare matrices of different sizes";
+    if (size != other.size) 
+        throw std::invalid_argument("Cannot compare matrices of different sizes");
 
     double sum1 = 0, sum2 = 0;
     for (int i = 0; i < size; ++i)
@@ -359,7 +353,7 @@ bool SquareMat::operator>=(const SquareMat& other) const {
     return (*this > other) || (*this == other);
 }
 
-
+//determinant
 double SquareMat::operator!() const {
 
     if (size == 0) {
@@ -415,7 +409,9 @@ double SquareMat::operator!() const {
 
 // Matrices connection and placement
 SquareMat& SquareMat::operator+=(const SquareMat& other) {
-    if (size != other.size) throw "Matrix sizes must match for +=";
+    if (size != other.size) 
+        throw std::invalid_argument("Matrix sizes must match for +=");
+
     for (int i = 0; i < size; ++i)
         for (int j = 0; j < size; ++j)
             data[i][j] += other.data[i][j];
@@ -424,7 +420,9 @@ SquareMat& SquareMat::operator+=(const SquareMat& other) {
 
 // Matrix Subtraction and Substitution
 SquareMat& SquareMat::operator-=(const SquareMat& other) {
-    if (size != other.size) throw "Matrix sizes must match for -=";
+    if (size != other.size) 
+        throw std::invalid_argument("Matrix sizes must match for -=");
+
     for (int i = 0; i < size; ++i)
         for (int j = 0; j < size; ++j)
             data[i][j] -= other.data[i][j];
@@ -433,7 +431,8 @@ SquareMat& SquareMat::operator-=(const SquareMat& other) {
 
 // Matrix multiplication and substitution
 SquareMat& SquareMat::operator*=(const SquareMat& other) {
-    if (size != other.size) throw "Matrix sizes must match for *=";
+    if (size != other.size) 
+        throw std::invalid_argument("Matrix sizes must match for *=");
 
     SquareMat result = *this * other; // Use existing operator*
     *this = result; // Update current matrix
@@ -450,7 +449,9 @@ SquareMat& SquareMat::operator*=(double scalar) {
 
 // Scalar division and substitution
 SquareMat& SquareMat::operator/=(double scalar) {
-    if (scalar == 0) throw "Division by zero";
+    if (scalar == 0) {
+        throw std::invalid_argument("Division by zero is not allowed");
+    }
     for (int i = 0; i < size; ++i)
         for (int j = 0; j < size; ++j)
             data[i][j] /= scalar;
@@ -460,7 +461,9 @@ SquareMat& SquareMat::operator/=(double scalar) {
 
 // Multiplication and Substitution
 SquareMat& SquareMat::operator%=(const SquareMat& other) {
-    if (size != other.size) throw "Matrix sizes must match for %=";
+    if (size != other.size) 
+        throw std::invalid_argument("Matrix sizes must match for %=");
+
     for (int i = 0; i < size; ++i)
         for (int j = 0; j < size; ++j)
             data[i][j] *= other.data[i][j];
@@ -478,6 +481,12 @@ SquareMat& SquareMat::operator%=(int scalar) {
 
 namespace MyMatrix {
 
+    //scalar * Matrix (outside the class, inside namespace)
+    SquareMat operator*(double scalar, const SquareMat& mat) {
+        return mat * scalar;
+    }
+
+    //Like the print() function
     std::ostream& operator<<(std::ostream& os, const SquareMat& mat) {
         for (int i = 0; i < mat.getSize(); ++i) {
             for (int j = 0; j < mat.getSize(); ++j) {
@@ -488,7 +497,7 @@ namespace MyMatrix {
         return os;
     }
     
-    }
+}
     
 
 
