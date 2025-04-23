@@ -206,7 +206,7 @@ SquareMat SquareMat::operator%(const SquareMat& other) const {
         for (int j = 0; j < size; ++j)
             result[i][j] = data[i][j] * other.data[i][j];
 
-    return result;
+    return result;   
 }
 
 //For each element in the matrix, we model it with the scalar
@@ -309,10 +309,9 @@ SquareMat SquareMat::operator~() const {
     return result;
 }
 
-// Equality operator (==): compare sum of all elements
 bool SquareMat::operator==(const SquareMat& other) const {
     if (size != other.size)
-        return false;
+        throw std::invalid_argument("Matrices must be of the same size.");
 
     double sum1 = 0, sum2 = 0;
 
@@ -324,6 +323,7 @@ bool SquareMat::operator==(const SquareMat& other) const {
 
     return sum1 == sum2;
 }
+
 
 // Inequality operator (!=)
 bool SquareMat::operator!=(const SquareMat& other) const {
@@ -361,6 +361,10 @@ bool SquareMat::operator>=(const SquareMat& other) const {
 
 
 double SquareMat::operator!() const {
+
+    if (size == 0) {
+        throw std::invalid_argument("Cannot calculate determinant of an empty matrix");
+    }
     if (size == 1)
         return data[0][0];
 
