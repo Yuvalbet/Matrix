@@ -12,12 +12,10 @@ private:
     double** data;
 
 public:
-    SquareMat(int n);
-    SquareMat(const SquareMat& other);
-    SquareMat& operator=(const SquareMat& other);
-
-
-    ~SquareMat();
+    SquareMat(int n); //Constructor
+    SquareMat(const SquareMat& other); //Copy constructor
+    SquareMat& operator=(const SquareMat& other); //Copy assignment operator
+    ~SquareMat(); //Destructor
 
     void print() const;
     
@@ -90,9 +88,6 @@ public:
     SquareMat& operator/=(double scalar);
     SquareMat& operator%=(const SquareMat& other);
     SquareMat& operator%=(int scalar);
-
-
-
 
    
 };
