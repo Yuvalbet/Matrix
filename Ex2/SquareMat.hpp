@@ -1,3 +1,5 @@
+//Email: yuvali532@gmail.com
+
 #ifndef SQUAREMAT_HPP
 #define SQUAREMAT_HPP
 
@@ -17,10 +19,9 @@ public:
     SquareMat& operator=(const SquareMat& other); //Copy assignment operator
     ~SquareMat(); //Destructor
 
-    void print() const;
     
     // Get matrix size
-    int getSize() const { return size; }
+    int getSize() const;
 
     // Access row (for mat[i][j] syntax)
     double* operator[](int i);
@@ -35,8 +36,11 @@ public:
     // Operator - : Unary minus (changes the sign of each element)
     SquareMat operator-() const;
 
-    // Operator * : Multiplies two matrices
+    // Operator * : Multiplies two matrices by definition of matrix multiplication
     SquareMat operator*(const SquareMat& other) const;
+
+    // Scalar multiplication: scalar * matrix
+    friend SquareMat operator*(double scalar, const SquareMat& mat);
 
     // Scalar multiplication: matrix * scalar
     SquareMat operator*(double scalar) const;
@@ -47,10 +51,10 @@ public:
     // Modulo operation with scalar
     SquareMat operator%(int scalar) const;
 
-    //calar division (divide each element by scalar)
+    // scalar division (divide each element by scalar)
     SquareMat operator/(double scalar) const;
 
-    //Raises the matrix to a power (matrix exponentiation)
+    // Raises the matrix to a power (matrix exponentiation)
     SquareMat operator^(int power) const;
 
     // Pre-increment (++mat)
@@ -78,6 +82,7 @@ public:
     bool operator>(const SquareMat& other) const;
     bool operator>=(const SquareMat& other) const;
 
+    // Operator for calculating the determinant of the matrix
     double operator!() const;
 
     // Combined assignment operators
@@ -89,13 +94,11 @@ public:
     SquareMat& operator%=(const SquareMat& other);
     SquareMat& operator%=(int scalar);
 
-   
+
+    friend std::ostream& operator<<(std::ostream& os, const SquareMat& mat);
+ 
 };
-    // Scalar multiplication: scalar * matrix
-    SquareMat operator*(double scalar, const SquareMat& mat);
-
-    std::ostream& operator<<(std::ostream& os, const SquareMat& mat);
-
-
+   
 }
+
 #endif

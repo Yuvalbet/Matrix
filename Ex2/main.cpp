@@ -1,3 +1,5 @@
+//Email: yuvali532@gmail.com
+
 #include <iostream>
 #include "SquareMat.hpp"
 
@@ -8,146 +10,144 @@ int main() {
     try {
         SquareMat a(2), b(2);
 
-        // Fill matrix A
+        // Fill matrix a
         a[0][0] = 1; a[0][1] = 2;
         a[1][0] = 3; a[1][1] = 4;
 
-        // Fill matrix B
+        // Fill matrix b
         b[0][0] = 5; b[0][1] = 6;
         b[1][0] = 7; b[1][1] = 8;
 
-        cout << "Matrix A:" << endl;
-        a.print();
+        cout << "Matrix a:" << endl;
+        cout << a << endl;
 
-        cout << "Matrix B:" << endl;
-        b.print();
+        cout << "Matrix b:" << endl;
+        cout << b << endl;
 
         // Matrix addition
         SquareMat c = a + b;
-        cout << "A + B:" << endl;
-        c.print();
+        cout << "a + b:" << endl;
+        cout << c << endl;
 
         // Matrix subtraction
         SquareMat d = a - b;
-        cout << "A - B:" << endl;
-        d.print();
+        cout << "a - b:" << endl;
+        cout << d << endl;
 
         // Unary minus
         SquareMat e = -a;
-        cout << "-A:" << endl;
-        e.print();
+        cout << "-a:" << endl;
+        cout << e << endl;
 
         // Matrix multiplication
         SquareMat f = a * b;
-        cout << "A * B:" << endl;
-        f.print();
+        cout << "a * b:" << endl;
+        cout << f << endl;
 
         // Matrix * scalar
         SquareMat g = a * 2.0;
-        cout << "A * 2.0:" << endl;
-        g.print();
+        cout << "a * 2.0:" << endl;
+        cout << g << endl;
 
         // Scalar * matrix
         SquareMat h = 3.0 * b;
-        cout << "3.0 * B:" << endl;
-        h.print();
+        cout << "3.0 * b:" << endl;
+        cout << h << endl;
 
         // Element-wise multiplication
         SquareMat i = a % b;
-        cout << "A % B (element-wise multiplication):" << endl;
-        i.print();
+        cout << "a % b (element-wise multiplication):" << endl;
+        cout << i << endl;
 
         // Modulo with scalar
         SquareMat j = b % 5;
-        cout << "B % 5 (element-wise modulo):" << endl;
-        j.print();
+        cout << "b % 5 (element-wise modulo):" << endl;
+        cout << j << endl;
 
         // Scalar division: A / 2.0
         SquareMat k = a / 2.0;
-        cout << "A / 2.0:" << endl;
-        k.print();
+        cout << "a / 2.0:" << endl;
+        cout << k << endl;
         
         // Matrix exponentiation (raising the matrix to a power)
-        SquareMat l= a ^ 2;  // Raise matrix A to the power of 2
-        cout << "A ^ 2:" << endl;
-        l.print();
-
+        SquareMat l = a ^ 2;  // Raise matrix A to the power of 2
+        cout << "a ^ 2:" << endl;
+        cout << l << endl;
 
         // Pre-increment
         ++a;
-        cout << "++A:" << endl;
-        a.print();
+        cout << "++a:" << endl;
+        cout << a << endl;
 
         // Post-increment
         SquareMat tempA = a++;
-        cout << "A++ (after post-increment):" << endl;
-        a.print();
+        cout << "a++ (after post-increment):" << endl;
+        cout << a << endl;
     
         // Pre-decrement
         --b;
-        cout << "--B:" << endl;
-        b.print();
+        cout << "--b:" << endl;
+        cout << b << endl;
 
         // Post-decrement
         SquareMat tempB = b--;
-        cout << "B-- (after post-decrement):" << endl;
-        b.print();
+        cout << "b-- (after post-decrement):" << endl;
+        cout << b << endl;
         
         // Transpose of matrix A
         SquareMat m = ~a;
-        cout << "~A (transpose of A):" << endl;
-        m.print();
+        cout << "~a (transpose of A):" << endl;
+        cout << m << endl;
 
         // Equality and inequality tests
-        cout << "A == B? " << (a == b ? "true" : "false") << endl;
-        cout << "A != B? " << (a != b ? "true" : "false") << endl;
+        cout << "a == b? " << (a == b ? "true" : "false") << endl;
+        cout << "a != b? " << (a != b ? "true" : "false") << endl;
 
         // Comparison tests
-        cout << "A < B? " << (a < b ? "true" : "false") << endl;
-        cout << "A > B? " << (a > b ? "true" : "false") << endl;
-        cout << "A <= B? " << (a <= b ? "true" : "false") << endl;
-        cout << "A >= B? " << (a >= b ? "true" : "false") << endl;
+        cout << "a < b? " << (a < b ? "true" : "false") << endl;
+        cout << "a > b? " << (a > b ? "true" : "false") << endl;
+        cout << "a <= b? " << (a <= b ? "true" : "false") << endl;
+        cout << "a >= b? " << (a >= b ? "true" : "false") << endl;
 
         // determinant
-        cout << "Determinant of A: " << !a << endl;
-        cout << "Determinant of B: " << !b << endl;
+        cout << "Determinant of a: " << !a << endl;
+        cout << "Determinant of b: " << !b << endl;
 
         // +=
         a += b;
-        cout << "A += B:" << endl;
-        a.print();
+        cout << "a += b:" << endl;
+        cout << a << endl;
 
         // -=
         a -= b;
-        cout << "A -= B:" << endl;
-        a.print();
+        cout << "a -= b:" << endl;
+        cout << a << endl;
 
         // *= scalar
         a *= 2.0;
-        cout << "A *= 2.0:" << endl;
-        a.print();
+        cout << "a *= 2.0:" << endl;
+        cout << a << endl;
 
         // /= scalar
         a /= 2.0;
-        cout << "A /= 2.0:" << endl;
-        a.print();
+        cout << "a /= 2.0:" << endl;
+        cout << a << endl;
 
         // %= matrix (element-wise multiplication)
         a %= b;
-        cout << "A %= B (element-wise):" << endl;
-        a.print();
+        cout << "a %= b (element-wise):" << endl;
+        cout << a << endl;
 
         // %= scalar (modulo)
         b %= 5;
-        cout << "B %= 5 (modulo):" << endl;
-        b.print();
-
-        cout << "Printing matrix A with operator<<:" << endl;
-        cout << a << endl;
-
-        cout << "Printing matrix B with operator<<:" << endl;
+        cout << "b %= 5 (modulo):" << endl;
         cout << b << endl;
 
+        cout << "Printing matrix a with operator<<:" << endl;
+        cout << a << endl;
+
+        cout << "Printing matrix b with operator<<:" << endl;
+        cout << b << endl;
 
     } catch (const char* msg) {
         cout << "Error: " << msg << endl;

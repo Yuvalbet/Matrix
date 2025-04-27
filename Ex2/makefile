@@ -1,4 +1,6 @@
-CXX = g++
+#Email: yuvali532@gmail.com
+
+CXX = clang++ # Compiler
 CXXFLAGS = -Wall -g
 
 all: Main
