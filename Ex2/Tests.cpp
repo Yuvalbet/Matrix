@@ -1,33 +1,32 @@
-//Email: yuvali532@gmail.com
-
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 
 #include "doctest.h"
 #include "SquareMat.hpp"
 
 TEST_CASE("Constructor checks with invalid values") {
-    CHECK_THROWS(MyMatrix::SquareMat(0));
-    CHECK_THROWS(MyMatrix::SquareMat(-3));
+    CHECK_THROWS(MyMatrix::SquareMat(0));  
+    CHECK_THROWS(MyMatrix::SquareMat(-3)); 
 }
 
 TEST_CASE("Incorrect index access checks") {
-    MyMatrix::SquareMat m(3);
-    CHECK_THROWS(m[-1]);
-    CHECK_THROWS(m[3]);
+    MyMatrix::SquareMat m(3); 
+    CHECK_THROWS(m[-1]); 
+    CHECK_THROWS(m[3]);  
 }
 
 TEST_CASE("Testing operations between matrices of different sizes") {
-    MyMatrix::SquareMat a(2), b(3);
-    CHECK_THROWS(a + b);
-    CHECK_THROWS(a - b);
-    CHECK_THROWS(a * b);
-    CHECK_THROWS(a % b);
+    MyMatrix::SquareMat a(2), b(3); 
+    CHECK_THROWS(a + b); 
+    CHECK_THROWS(a - b); 
+    CHECK_THROWS(a * b);  
+    CHECK_THROWS(a % b); 
 }
 
+// Test for division by zero
 TEST_CASE("Checking operations with an invalid scalar") {
     MyMatrix::SquareMat m(2);
-    CHECK_THROWS(m / 0);
-    CHECK_THROWS(m % 0);
+    CHECK_THROWS(m / 0); 
+    CHECK_THROWS(m % 0); 
 }
 
 TEST_CASE("Negative strength test") {
@@ -40,14 +39,14 @@ TEST_CASE("Determinant test on an empty matrix") {
 }
 
 TEST_CASE("Testing comparisons between matrices of different sizes") {
-    MyMatrix::SquareMat a(2), b(3);
-    CHECK_THROWS(a == b);
-    CHECK_THROWS(a < b);
-    CHECK_THROWS(a > b);
+    MyMatrix::SquareMat a(2), b(3); 
+    CHECK_THROWS(a == b);  
+    CHECK_THROWS(a < b);   
+    CHECK_THROWS(a > b);   
 }
 
 TEST_CASE("Matrix addition") {
-    MyMatrix::SquareMat a(2), b(2);
+    MyMatrix::SquareMat a(2), b(2); 
     a[0][0] = 1; a[0][1] = 2; a[1][0] = 3; a[1][1] = 4;
     b[0][0] = 5; b[0][1] = 6; b[1][0] = 7; b[1][1] = 8;
 
@@ -60,7 +59,7 @@ TEST_CASE("Matrix addition") {
 }
 
 TEST_CASE("Matrix subtraction") {
-    MyMatrix::SquareMat a(2), b(2);
+    MyMatrix::SquareMat a(2), b(2); 
     a[0][0] = 1; a[0][1] = 2; a[1][0] = 3; a[1][1] = 4;
     b[0][0] = 5; b[0][1] = 6; b[1][0] = 7; b[1][1] = 8;
 
@@ -85,16 +84,16 @@ TEST_CASE("Unary minus") {
 }
 
 TEST_CASE("Matrix multiplication") {
-    MyMatrix::SquareMat a(2), b(2);
+    MyMatrix::SquareMat a(2), b(2); 
     a[0][0] = 1; a[0][1] = 2; a[1][0] = 3; a[1][1] = 4;
     b[0][0] = 5; b[0][1] = 6; b[1][0] = 7; b[1][1] = 8;
 
     MyMatrix::SquareMat c = a * b;
 
-    CHECK(c[0][0] == 19); // (1*5 + 2*7)
-    CHECK(c[0][1] == 22); // (1*6 + 2*8)
-    CHECK(c[1][0] == 43); // (3*5 + 4*7)
-    CHECK(c[1][1] == 50); // (3*6 + 4*8)
+    CHECK(c[0][0] == 19);
+    CHECK(c[0][1] == 22);
+    CHECK(c[1][0] == 43);
+    CHECK(c[1][1] == 50);
 }
 
 TEST_CASE("Matrix * scalar") {
@@ -115,24 +114,25 @@ TEST_CASE("Scalar * matrix") {
 
     MyMatrix::SquareMat c = 3.0 * b;
 
-    CHECK(c[0][0] == 15); // 3 * 5
-    CHECK(c[0][1] == 18); // 3 * 6
-    CHECK(c[1][0] == 21); // 3 * 7
-    CHECK(c[1][1] == 24); // 3 * 8
+    CHECK(c[0][0] == 15);
+    CHECK(c[0][1] == 18);
+    CHECK(c[1][0] == 21);
+    CHECK(c[1][1] == 24);
 }
 
 TEST_CASE("Element-wise multiplication") {
-    MyMatrix::SquareMat a(2), b(2);
+    MyMatrix::SquareMat a(2), b(2); 
     a[0][0] = 1; a[0][1] = 2; a[1][0] = 3; a[1][1] = 4;
     b[0][0] = 5; b[0][1] = 6; b[1][0] = 7; b[1][1] = 8;
 
     MyMatrix::SquareMat c = a % b;
 
-    CHECK(c[0][0] == 5);  // 1 * 5
-    CHECK(c[0][1] == 12); // 2 * 6
-    CHECK(c[1][0] == 21); // 3 * 7
-    CHECK(c[1][1] == 32); // 4 * 8
+    CHECK(c[0][0] == 5);
+    CHECK(c[0][1] == 12);
+    CHECK(c[1][0] == 21);
+    CHECK(c[1][1] == 32);
 }
+
 
 TEST_CASE("Modulo with scalar") {
     MyMatrix::SquareMat b(2);
@@ -140,10 +140,10 @@ TEST_CASE("Modulo with scalar") {
 
     MyMatrix::SquareMat c = b % 5;
 
-    CHECK(c[0][0] == 0);  // 5 % 5
-    CHECK(c[0][1] == 1);  // 6 % 5
-    CHECK(c[1][0] == 2);  // 7 % 5
-    CHECK(c[1][1] == 3);  // 8 % 5
+    CHECK(c[0][0] == 0);
+    CHECK(c[0][1] == 1);
+    CHECK(c[1][0] == 2);
+    CHECK(c[1][1] == 3);
 }
 
 TEST_CASE("Scalar division") {
@@ -164,10 +164,10 @@ TEST_CASE("Matrix exponentiation") {
 
     MyMatrix::SquareMat c = a ^ 2;
 
-    CHECK(c[0][0] == 7);  // (1*1 + 2*3)
-    CHECK(c[0][1] == 10); // (1*2 + 2*4)
-    CHECK(c[1][0] == 15); // (3*1 + 4*3)
-    CHECK(c[1][1] == 22); // (3*2 + 4*4)
+    CHECK(c[0][0] == 7);
+    CHECK(c[0][1] == 10);
+    CHECK(c[1][0] == 15);
+    CHECK(c[1][1] == 22);
 }
 
 TEST_CASE("Pre-increment") {
@@ -188,44 +188,44 @@ TEST_CASE("Post-increment") {
 
     MyMatrix::SquareMat tempA = a++;
 
-    CHECK(tempA[0][0] == 1);  // Original value
+    CHECK(tempA[0][0] == 1);
     CHECK(tempA[0][1] == 2);
     CHECK(tempA[1][0] == 3);
     CHECK(tempA[1][1] == 4);
 
-    CHECK(a[0][0] == 2);  // Incremented value
+    CHECK(a[0][0] == 2);
     CHECK(a[0][1] == 3);
     CHECK(a[1][0] == 4);
     CHECK(a[1][1] == 5);
 }
 
 TEST_CASE("Pre-decrement") {
-    MyMatrix::SquareMat b(2);
-    b[0][0] = 1; b[0][1] = 2; b[1][0] = 3; b[1][1] = 4;
+    MyMatrix::SquareMat a(2);
+    a[0][0] = 1; a[0][1] = 2; a[1][0] = 3; a[1][1] = 4;
 
-    --b;
+    --a;
 
-    CHECK(b[0][0] == 0);
-    CHECK(b[0][1] == 1);
-    CHECK(b[1][0] == 2);
-    CHECK(b[1][1] == 3);
+    CHECK(a[0][0] == 0);
+    CHECK(a[0][1] == 1);
+    CHECK(a[1][0] == 2);
+    CHECK(a[1][1] == 3);
 }
 
 TEST_CASE("Post-decrement") {
-    MyMatrix::SquareMat b(2);
-    b[0][0] = 1; b[0][1] = 2; b[1][0] = 3; b[1][1] = 4;
+    MyMatrix::SquareMat a(2);
+    a[0][0] = 1; a[0][1] = 2; a[1][0] = 3; a[1][1] = 4;
 
-    MyMatrix::SquareMat tempB = b--;
+    MyMatrix::SquareMat tempA = a--;
 
-    CHECK(tempB[0][0] == 1);
-    CHECK(tempB[0][1] == 2);
-    CHECK(tempB[1][0] == 3);
-    CHECK(tempB[1][1] == 4);
+    CHECK(tempA[0][0] == 1);
+    CHECK(tempA[0][1] == 2);
+    CHECK(tempA[1][0] == 3);
+    CHECK(tempA[1][1] == 4);
 
-    CHECK(b[0][0] == 0);
-    CHECK(b[0][1] == 1);
-    CHECK(b[1][0] == 2);
-    CHECK(b[1][1] == 3);
+    CHECK(a[0][0] == 0);
+    CHECK(a[0][1] == 1);
+    CHECK(a[1][0] == 2);
+    CHECK(a[1][1] == 3);
 }
 
 TEST_CASE("Transpose") {
@@ -256,10 +256,10 @@ TEST_CASE("Combined assignment operators") {
 
     a += b;
 
-    CHECK(a[0][0] == 6);  // 1 + 5
-    CHECK(a[0][1] == 8);  // 2 + 6
-    CHECK(a[1][0] == 10); // 3 + 7
-    CHECK(a[1][1] == 12); // 4 + 8
+    CHECK(a[0][0] == 6);  
+    CHECK(a[0][1] == 8);  
+    CHECK(a[1][0] == 10); 
+    CHECK(a[1][1] == 12); 
 }
 
 TEST_CASE("Combined assignment operators (subtraction)") {
@@ -269,8 +269,8 @@ TEST_CASE("Combined assignment operators (subtraction)") {
 
     a -= b;
 
-    CHECK(a[0][0] == 4);  // 5 - 1
-    CHECK(a[0][1] == 4);  // 6 - 2
-    CHECK(a[1][0] == 4);  // 7 - 3
-    CHECK(a[1][1] == 4);  // 8 - 4
+    CHECK(a[0][0] == 4);  
+    CHECK(a[0][1] == 4);  
+    CHECK(a[1][0] == 4);  
+    CHECK(a[1][1] == 4); 
 }

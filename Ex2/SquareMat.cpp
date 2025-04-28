@@ -11,7 +11,7 @@ namespace MyMatrix {
     // Constructor – Allocates 2D dynamic array
     SquareMat::SquareMat(int n) {
         if (n <= 0)
-            throw std::invalid_argument("Matrix size must be positive.");
+            throw std::invalid_argument("Matrix size must be greater than 0");
 
         size = n;
         data = new double*[size];
@@ -183,6 +183,7 @@ namespace MyMatrix {
         return result;
     }
 
+
     //scalar * Matrix (outside the class, inside namespace)
     SquareMat operator*(double scalar, const SquareMat& mat) {
         return mat * scalar;
@@ -248,6 +249,7 @@ namespace MyMatrix {
             }
             return identity;
         }
+        
         if (power==1){
             return *this;
         }
@@ -473,7 +475,10 @@ namespace MyMatrix {
 
     // Scalar modulo and placement
     SquareMat& SquareMat::operator%=(int scalar) {
-        if (scalar == 0) throw "Modulo by zero";
+        if (scalar == 0) {
+            throw std:: invalid_argument("Modulo by zero scalar.");
+        }
+
         for (int i = 0; i < size; ++i)
             for (int j = 0; j < size; ++j)
                 data[i][j] = fmod(data[i][j], scalar);
