@@ -5,7 +5,6 @@
 
 #include <ostream>
 
-
 namespace MyMatrix{
     
 class SquareMat{

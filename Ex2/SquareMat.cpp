@@ -273,8 +273,8 @@ namespace MyMatrix {
 
     //post increment
     SquareMat SquareMat::operator++(int) {
-        SquareMat temp = *this;  // save current state
-        ++(*this);               // use pre-increment to apply
+        SquareMat temp = *this;  
+        ++(*this);               
         return temp;
     }
 
@@ -299,7 +299,7 @@ namespace MyMatrix {
 
         for (int i = 0; i < size; ++i)
             for (int j = 0; j < size; ++j)
-                result[j][i] = data[i][j];  // swap indices
+                result[j][i] = data[i][j]; 
 
         return result;
     }
@@ -323,7 +323,7 @@ namespace MyMatrix {
 
     // Inequality operator (!=)
     bool SquareMat::operator!=(const SquareMat& other) const {
-        return !(*this == other);  // reuse ==
+        return !(*this == other);  
     }
 
     // Less than
@@ -437,8 +437,8 @@ namespace MyMatrix {
         if (size != other.size) 
             throw std::invalid_argument("Matrix sizes must match for *=");
 
-        SquareMat result = *this * other; // Use existing operator*
-        *this = result; // Update current matrix
+        SquareMat result = *this * other; 
+        *this = result;
         return *this;
     }
 

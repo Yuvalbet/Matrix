@@ -67,7 +67,7 @@ int main() {
     cout << "a / 2.0:\n" << k << "\n";
     
     // Matrix exponentiation (raising the matrix to a power)
-    SquareMat l = a ^ 2;  // Raise matrix A to the power of 2
+    SquareMat l = a ^ 2;  
     cout << "a ^ 2:\n" << l << "\n";
 
     // Pre-increment
